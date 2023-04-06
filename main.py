@@ -4,3 +4,4 @@ json_text = '{"messages": [{"message": "Hello World!"}, {"message": "Приве�
 data = json.loads(json_text)
 print(data['messages'][1]['message'])
 
+
