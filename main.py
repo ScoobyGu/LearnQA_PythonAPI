@@ -1,6 +1,6 @@
-print("Hello from Gu")
+import json
 
-import requests
+json_text = '{"messages": [{"message": "Hello World!"}, {"message": "Привет Мир!"}]}'
+data = json.loads(json_text)
+print(data['messages'][1]['message'])
 
-response = requests.get("https://playground.learnqa.ru/api/get_text")
-print(response.text)
