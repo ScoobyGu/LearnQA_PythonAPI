@@ -36,3 +36,4 @@ class TestUserAgent:
         assert actual_platform == expected_platform, f"Actual platform '{actual_platform}' not equal expected platform {expected_platform}"
         assert actual_browser == expected_browser, f"Actual browser '{actual_browser}' not equal expected browser {expected_browser}"
         assert actual_device == expected_device, f"Actual device '{actual_device}' not equal expected device {expected_device}"
+

@@ -1,37 +1,15 @@
 import requests
 
-url = "https://playground.learnqa.ru/ajax/api/compare_query_type"
+login = "super_admin"
+passwords = ["123456", "password", "123456789", "12345678", "12345", "1234567", "1234567890", "qwerty", "abc123", "111111", "123123", "admin", "welcome", "monkey", "login", "letmein", "dragon", "passw0rd", "football", "master", "hello", "freedom", "whatever", "qazwsx", "trustno1"]
 
-# 1. Запрос без параметра method
-response = requests.get(url)
-print(response.text) # Выведет "Wrong method provided"
+for password in passwords:
+    response1 = requests.post("https://playground.learnqa.ru/ajax/api/get_secret_password_homework", data={"login": "super_admin", "password": password})
+    cookie_value = response1.cookies.get("auth_cookie")
+    cookies = {"auth_cookie": cookie_value}
+    # print(cookies)
 
-# 2. Запрос с неправильным типом
-response = requests.request("HEAD", url)
-print(response.text) # Выведет "Wrong method provided"
-
-# 3. Запрос с правильным значением method
-payload = {"method": "GET"}
-response = requests.get(url, params=payload)
-print(response.text) # Выведет "success"
-
-# 4. Проверка всех сочетаний
-methods = ["GET", "POST", "PUT", "DELETE"]
-for method in methods:
-    for param_method in methods:
-        if method != param_method:
-            payload = {"method": param_method}
-            if method == "GET":
-                response = requests.get(url, params=payload)
-            else:
-                response = requests.post(url, data=payload)
-            if response.text == "success":
-                print(f"Method {method} with param method {param_method} is not detected")
-        else:
-            payload = {"method": param_method}
-            if method == "GET":
-                response = requests.get(url, params=payload)
-            else:
-                response = requests.post(url, data=payload)
-            if response.text != "success":
-                print(f"Method {method} with param method {param_method} is not detected")
+    response2 = requests.post("https://playground.learnqa.ru/api/check_auth_cookie", cookies=cookies)
+     # print(response2.text)
+    if response2.text == "You are authorized":
+        print("Пароль найден! Это", password)
