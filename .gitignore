@@ -4,4 +4,6 @@
 /.idea
 Test.py
 logs/*
+test_results/
+
 
